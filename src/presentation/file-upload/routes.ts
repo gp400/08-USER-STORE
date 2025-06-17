@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { FileUploadController } from './controller';
 import { FileUploadService } from '../services/file-upload.service';
 import { FileUploadMiddlware } from '../middlewares/file-upload.middleware';
+import { TypeMiddlware } from '../middlewares/type.middleware';
 
 export class FileUploadRoutes {
 
@@ -13,6 +14,8 @@ export class FileUploadRoutes {
     );
 
     router.use( FileUploadMiddlware.containFiles )
+    router.use( TypeMiddlware.validTypes(['users', 'products', 'categories']) )
+
     router.post('/single/:type', controller.uploadFile);
     router.post('/multiple/:type', controller.uploadMultipleFiles)
 
